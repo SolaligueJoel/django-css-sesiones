@@ -5,28 +5,13 @@ from e_commerce.api.serializers import *
 from django.contrib.auth.models import User
 from e_commerce.models import Comic,WishList
 
-# Luego importamos las herramientas para crear las api views con Django REST FRAMEWORK:
 
-# (GET) Listar todos los elementos en la entidad:
-from rest_framework.generics import ListAPIView
-
-# (POST) Inserta elementos en la DB
-from rest_framework.generics import CreateAPIView
-
-# (GET-POST) Para ver e insertar elementos en la DB
-from rest_framework.generics import ListCreateAPIView
-
-from rest_framework.generics import RetrieveUpdateAPIView
-
-from rest_framework.generics import DestroyAPIView
-
-# Esto en realidad lo podemos hacer como:
-# from rest_framework.generics import (
-#     ListAPIView,
-#     CreateAPIView,
-#     ListCreateAPIView,
-#     RetrieveUpdateAPIView,
-#     DestroyAPIView)
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateAPIView,
+    DestroyAPIView)
 # de manera más prolija
 
 # Importamos librerías para gestionar los permisos de acceso a nuestras APIs
@@ -168,7 +153,7 @@ class LoginUserAPIView(APIView):
                     token = Token.objects.create(user=account)
                 # Con todos estos datos, construimos un JSON de respuesta:
                 user_data['user_id'] = account.pk
-                user_data['username'] = username
+                user_data['username'] = account.username
                 user_data['first_name'] = account.first_name
                 user_data['last_name'] = account.first_name
                 user_data['email']=account.email
@@ -189,4 +174,68 @@ class LoginUserAPIView(APIView):
             return Response(user_data)
 
 # TODO: Agregar las vistas genericas que permitan realizar un CRUD del modelo de wish-list.
+class GetWishListAPIView(ListAPIView):
+    __doc__ = f'''{mensaje_headder}
+    `[METODO GET]`
+    Esta vista de API nos devuelve la lista de favoritos presentes 
+    en la base de datos.
+    '''
+    queryset = WishList.objects.all()
+    serializer_class = WishListSerializer
+    permission_classes = [IsAuthenticated]
+    
+
+class PostWishListAPIView(CreateAPIView):
+    __doc__ = f'''{mensaje_headder}
+    `[METODO POST]`
+    Esta vista de API nos permite hacer un insert en la base de datos.
+    '''
+    queryset = WishList.objects.all()
+    serializer_class = ComicSerializer
+    permission_classes = [IsAuthenticated]
+    
+
+class RetrieveUpdateWishListAPIView(RetrieveUpdateAPIView):
+    __doc__ = f'''{mensaje_headder}
+    `[METODO GET-PUT-PATCH]`
+    Esta vista de API nos permite actualizar un registro, o simplemente visualizarlo.
+    '''
+    queryset = WishList.objects.all()
+    serializer_class = WishListSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class DestroyWishListAPIView(DestroyAPIView):
+    __doc__ = f'''{mensaje_headder}
+    `[METODO DELETE]`
+    Esta vista de API nos devuelve una lista de todos los comics favoritos presentes 
+    en la base de datos.
+    '''
+    queryset = WishList.objects.all()
+    serializer_class = WishListSerializer
+    permission_classes = [IsAuthenticated]
+
+ 
 # TODO: Crear una vista generica modificada para traer todos los comics que tiene un usuario.
+
+class GetUserFavsAPIView(ListAPIView):
+    serializer_class = GetUserFavsSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get_queryset(self):
+        '''
+        Sobrescribimos la función `get_queryset` para poder filtrar el request 
+        por medio de la url. En este caso traemos de la url por medio de `self.kwargs` 
+        el parámetro `comic_id` y con él realizamos una query para traer 
+        el comic del username solicitado.  
+        '''
+        try:
+            username = self.kwargs['username']
+            user = User.objects.filter(username=username)
+            wish_list = WishList.objects.filter(user_id=user.first(), favorite=True)
+
+            return wish_list
+
+        except Exception as error:
+            return {'error': f'Ha ocurrido la siguiente excepción: {error}'}
+
