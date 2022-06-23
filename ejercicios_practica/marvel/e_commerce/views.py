@@ -28,6 +28,10 @@ class WishView(TemplateView):
 
 # Obtener los comics del usuario
 class CartView(TemplateView):
+	"""
+	Retorna una lista de comics del usuario 
+	logueado
+	"""
 	template_name = 'e-commerce/cart.html'
 	
 	def get_context_data(self, **kwargs):
@@ -41,6 +45,10 @@ class CartView(TemplateView):
 
 
 class WishView(TemplateView):
+	"""
+	Retorna una lista de los
+	comics favs del usuario logueado
+	"""
 	template_name = 'e-commerce/wish.html'
 
 	def get_context_data(self, **kwargs):
@@ -51,3 +59,4 @@ class WishView(TemplateView):
 		context['comics'] = favs_comics
 
 		return context
+		
