@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/e-commerce/css/base.css' %}">
+    <title>{% block title %}Marvel Comics e-commerce{% endblock %}</title>
+</head>
+
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+            <img class="image" src="{% static 'e-commerce/img/marvel.svg' %}" alt="" height="20%" width="20%">
+        <br>
+        <div id="menu">
+          <h1 class="base">Plantilla Base</h1>
+            <h2 class="base">INOVE - DJANGO</h2>
+        </div>
+            
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+    <div class="footer">
+        <h3>Tomado de: <a class="footer" 
+                href="https://docs.djangoproject.com/en/3.2/ref/templates/language/#template-inheritance">Django
+                Template Language</a></h3>
+        
+    </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{% extends 'e-commerce/base.html'  %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<h2>Formulario de Login</h2>
+<form action=' ' method="POST">{% csrf_token %}
+    <label for="usuario">Usuario:</label><br>
+    <input type="text" id="nombre" name="usuario"><br>
+    <label for="password" type='password'>Password:</label><br>
+    <input type="password" id="apellido" name="password" ><br><br>
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}

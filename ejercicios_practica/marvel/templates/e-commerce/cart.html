@@ -1,0 +1,26 @@
+{% extends 'e-commerce/base.html'  %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+
+<h2>Comics del usuario : {{user.username}}</h2>
+
+    {% for comic in comics %}
+    	<table>
+    		<tr>
+    			<th>Titulo</th>
+    			<th>Precio</th>
+    			<th>Stock</th>
+    		</tr>
+    		<tr>
+    			<td>{{comic.comic_id.title}}</td>
+    			<td>{{comic.comic_id.price}}</td>
+    			<td>{{comic.comic_id.stock_qty}}</td>
+    		</tr>
+    	</table>
+    	{% endfor %}
+
+
+
+{% endblock %}

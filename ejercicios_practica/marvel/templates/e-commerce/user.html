@@ -1,0 +1,16 @@
+{% extends 'e-commerce/base.html'  %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+	<h1>Usuario Autenticado!</h1>
+	<h1>Nombre de usuario autenticado: {{user.username}}</h1>
+	<h1>Email: {{user.email}}</h1>
+	<h3>Password: {{user.password}}</h3>
+	{% else %}
+	<h1>Usuario No Autenticado</h1>
+	<h1>Nombre de usuario no autenticado: {{user.username}}</h1>
+	{% endif %}
+
+{% endblock %}
