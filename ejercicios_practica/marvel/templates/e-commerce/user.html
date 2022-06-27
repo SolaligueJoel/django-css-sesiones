@@ -5,12 +5,16 @@
 {% block content %}
 	{% if user.is_authenticated %}
 	<h1>Usuario Autenticado!</h1>
-	<h1>Nombre de usuario autenticado: {{user.username}}</h1>
-	<h1>Email: {{user.email}}</h1>
-	<h3>Password: {{user.password}}</h3>
+	<h1>Nombre de usuario autenticado: {{user_data.username}}</h1>
+	{% if user.lastname %}
+	<h1>Nombre de usuario autenticado: {{user_data.lastname}}</h1>
 	{% else %}
-	<h1>Usuario No Autenticado</h1>
-	<h1>Nombre de usuario no autenticado: {{user.username}}</h1>
-	{% endif %}
+	<h1>Email: {{user_data.email}}</h1>
+	<h1>Pais: {{user_data.profile.country}}</h1>
+	<h1>Provincia: {{user_data.profile.province}}</h1>
+	<h1>Codigo Postal: {{user_data.profile.postal_code}}</h1>
+	<h1>Numero de telefono: {{user_data.profile.phone_number}}</h1>
 
+	{% endif %}
+	{% endif %}
 {% endblock %}

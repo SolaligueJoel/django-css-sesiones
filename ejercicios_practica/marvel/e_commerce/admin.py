@@ -38,3 +38,10 @@ class wish_listAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'comic_id', 'favorite', 'cart')
     list_display_links = ('user_id', 'comic_id')
     list_filter= ('favorite','cart')
+
+
+admin.site.register(Profile)
+
+@admin.register(PurchaseOrder)
+class PurchaseOrderAdmin(admin.ModelAdmin):
+    list_display = ('user','title','qty_comic',)

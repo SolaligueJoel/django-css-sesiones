@@ -2,10 +2,23 @@ from django.db import models
 
 # NOTE: Para poder utilizar el modelo "user" que viene por defecto en Django,
 # Debemos importarlo previamente:
-
 from django.contrib.auth.models import User
 
-# Create your models here.
+from django.urls import reverse
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    country = models.CharField(max_length=30, null=True, blank=True)
+    province = models.CharField(max_length=30,null=True, blank=True)
+    postal_code = models.IntegerField(null=True, blank=True)
+    phone_number = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.user)
+
+    def get_absolute_url(self):
+        return reverse('user')
 
 
 class Comic(models.Model):
@@ -38,7 +51,7 @@ class Comic(models.Model):
         La función __str__ cumple la misma función que __repr__ en SQL Alchemy, 
         es lo que retorna cuando llamamos al objeto.
         '''
-        return f'{self.id}'
+        return f'{self.title}'
 
 
 class WishList(models.Model):
@@ -65,5 +78,24 @@ class WishList(models.Model):
     class Meta:
         db_table = 'e_commerce_wish_list'
 
+
+    def get_absolute_url(self):
+        return reverse('cart')
+
     def __str__(self):
-        return f'{self.id}'
+        return str(self.comic_id)
+
+
+class PurchaseOrder(models.Model):
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=30)
+    qty_comic = models.IntegerField()
+
+    class Meta:
+        db_table = 'e_commerce_purchase_order'
+
+    def __str__(self):
+        return str(self.user)
+
+
+

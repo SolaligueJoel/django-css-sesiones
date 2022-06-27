@@ -3,6 +3,11 @@
 {% block title %}Thanks{% endblock %}
 
 {% block content %}
-<h1>{{request.user}} Gracias por su compra!</h1>
+<h1>{{request.user}} Gracias por su compra! {{title}}</h1>
+<h1>Detalle de su compra:</h1>
+<h2>Nombre usuario: {{user_order}}</h2>
+<h2>Titulo Comic: {{title_order}}</h2>
+<h2>Cantidad: {{buied_qty}}</h2>
+<h2>Precio total: {{total_price}}</h2>
 
 {% endblock %}

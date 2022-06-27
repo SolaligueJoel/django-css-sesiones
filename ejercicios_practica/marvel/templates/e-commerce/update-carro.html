@@ -1,0 +1,22 @@
+{% extends "e-commerce/base.html" %}
+
+{% block title %}Cantidad de comics{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+	{% if user.id == user.profile.id %}
+	<h1> Comics de {{user.profile.user}}</h1>
+    <form method="POST">
+            {% csrf_token %}
+        {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </form>
+	{% else %}
+	<h1>Usuario incorrecto, no se puede modificar esta pagina!</h1>
+	{% endif %}
+
+{% else  %}
+<h1>Logeate primero!</h1>
+
+{% endif %}
+{% endblock %}

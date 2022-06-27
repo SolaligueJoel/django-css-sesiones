@@ -14,6 +14,8 @@ from pathlib import Path
 # NOTE: Importamos os para indicar el directorio de templates y otras utilidades:
 import os
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -163,5 +165,6 @@ CIAN = "\033[;36m"
 VERDE = "\033[;32m"
 
 # NOTE: Para manejo de sesión.
-LOGIN_REDIRECT_URL = '/e-commerce/index'
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_URL = reverse_lazy('login')
 LOGIN_URL = '/e-commerce/'
