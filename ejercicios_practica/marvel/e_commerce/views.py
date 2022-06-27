@@ -154,7 +154,7 @@ def check_button(request):
 
 class ThanksView(TemplateView):
     '''
-    Retorna detalle de la compra del usuario.
+    Almacena los datos de compra en PurchaseOrder.
     Cambia el estado de cart = False y wished_qty = 0
     '''
     template_name = 'e-commerce/thanks.html'
