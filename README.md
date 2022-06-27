@@ -5,7 +5,7 @@ Web: [Inove](http://inove.com.ar)
 
 ---
 
-# Django - Template Language
+# Django - css - sesiones
 En este repositorio encontrarán los siguientes archivos:
 
 __Ejemplos que el profesor mostrará en clase__\
@@ -26,7 +26,7 @@ Siempre en el mismo directorio del archivo *docker-compose.yml*
 
 ### 2. Correr la línea de comandos dentro del contenedor
 
-**$** `docker exec -i -t modulo_6 bash`
+**$** `docker exec -i -t modulo_4b bash`
 
 Nos va a devolver a nuestra consola, una consola dentro del contenedor de software.
 
